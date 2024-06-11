@@ -25,7 +25,7 @@ jobs:
 
     # テストを実行
     - name: Run Gradle Test
-      run: ./gradlew testDebugUnitTest
+      run: ./gradlew testDebugUnitTest --no-daemon
 
     # レポート
     - name: Publish Test Report
