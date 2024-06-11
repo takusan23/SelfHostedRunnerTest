@@ -1,4 +1,4 @@
-push てすと
+push てすと1
 
 # NewRadioSupporter
 
