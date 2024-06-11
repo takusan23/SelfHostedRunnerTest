@@ -19,6 +19,10 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
+    # Android SDK を入れる、self-hosted runner だと手動で入れないといけない
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
     # 権限を与える
     - name: Grant permission gradlew
       run: chmod +x gradlew
