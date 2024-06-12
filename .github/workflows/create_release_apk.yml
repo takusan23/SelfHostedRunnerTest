@@ -3,8 +3,9 @@ name: Create Release APK
 # 起動条件。ブランチ名 release/** で始まる Pull Request が開いた時
 on:
   pull_request:
+    types: [opened, reopened, synchronize]
     branches:
-      - 'releases/**'
+      - 'release/**'
 jobs:
   build:
     runs-on: self-hosted
