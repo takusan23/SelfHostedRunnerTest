@@ -70,6 +70,14 @@ android {
             }
         }
     }
+    buildTypes {
+        release {
+            // 署名の設定を適用する
+            signingConfig = signingConfigs.getByName("release_signing_config")
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
 }
 
 dependencies {
