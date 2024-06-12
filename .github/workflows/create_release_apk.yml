@@ -1,0 +1,49 @@
+name: PR Run UnitTest
+
+# 起動条件。ブランチ名 release/** で始まる Pull Request が開いた時
+on:
+  pull_request:
+    branches:
+      - 'releases/**'
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+
+    # チェックアウトする
+    # Pull Request のブランチを指定
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    
+    # JDK導入
+    - name: set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    # Android SDK を入れる、self-hosted runner だと手動で入れないといけない
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    # 権限を与える
+    - name: Grant permission gradlew
+      run: chmod +x gradlew
+
+    # コマンドラインからAPKの作成。実行前に環境変数を GitHubActions の Secret から取得
+    - name: Building APK
+      env:
+        ENV_SIGN_KEYSTORE_BASE64: ${{secrets.ENV_SIGN_KEYSTORE_BASE64}}
+        ENV_SIGN_KEY_ALIAS: ${{secrets.ENV_SIGN_KEY_ALIAS}}
+        ENV_SIGN_KEY_PASSWORD: ${{secrets.ENV_SIGN_KEY_PASSWORD}}
+        ENV_SIGN_STORE_PASSWORD: ${{secrets.ENV_SIGN_STORE_PASSWORD}}
+      run: ./gradlew assembleRelease
+
+    # アーティファクトとして保存
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release.apk
+        path: app/build/outputs/apk/release/app-release.apk
