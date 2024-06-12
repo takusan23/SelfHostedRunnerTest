@@ -85,7 +85,7 @@ class BandDictionaryToolTest {
         val bandN28 = 157690
         Assert.assertEquals(BandDictionaryTool.isLteFrequency(bandN28), true)
         val bandN78 = 643334
-        Assert.assertEquals(BandDictionaryTool.isLteFrequency(bandN78), true)
+        Assert.assertEquals(BandDictionaryTool.isLteFrequency(bandN78), false)
         val bandN78LteFrequency = 635424
         Assert.assertEquals(BandDictionaryTool.isLteFrequency(bandN78LteFrequency), true)
     }
