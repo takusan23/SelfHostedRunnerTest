@@ -7,7 +7,7 @@ on:
 jobs:
   run_if:
     # ブランチ名 release/ で始まる場合のみ 
-    if:  startsWith(github.head_ref, 'releases/')
+    if:  startsWith(github.head_ref, 'release/')
     runs-on: self-hosted
     steps:
 
