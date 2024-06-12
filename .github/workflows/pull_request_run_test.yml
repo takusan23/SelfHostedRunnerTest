@@ -1,0 +1,45 @@
+name: PR Run UnitTest
+
+# 起動条件。Pull Request が空いた時
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+
+    # チェックアウトする
+    # Pull Request のブランチを指定
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    
+    # JDK導入
+    - name: set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    # Android SDK を入れる、self-hosted runner だと手動で入れないといけない
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    # 権限を与える
+    - name: Grant permission gradlew
+      run: chmod +x gradlew
+
+    # テストを実行
+    - name: Run Gradle Test
+      run: ./gradlew testDebugUnitTest --no-daemon
+
+    # レポート
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v3
+      if: success() || failure()
+      with:
+        report_paths: '**/build/test-results/testDebugUnitTest/TEST-*.xml'
