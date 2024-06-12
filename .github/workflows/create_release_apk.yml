@@ -1,13 +1,13 @@
 name: Create Release APK
 
-# 起動条件。ブランチ名 release/** で始まる Pull Request が開いた時
+# 起動条件。Pull Request が開いた時
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
-    branches:
-      - 'release/**'
+
 jobs:
-  build:
+  run_if:
+    # ブランチ名 release/ で始まる場合のみ 
+    if:  startsWith(github.head_ref, 'releases/')
     runs-on: self-hosted
     steps:
 
