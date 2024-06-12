@@ -3,8 +3,6 @@ name: PR Run UnitTest
 # 起動条件。Pull Request が空いた時
 on:
   pull_request:
-    types:
-      - opened
 
 jobs:
   build:
