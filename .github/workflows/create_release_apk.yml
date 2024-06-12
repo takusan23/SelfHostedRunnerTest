@@ -1,4 +1,4 @@
-name: PR Run UnitTest
+name: Create Release APK
 
 # 起動条件。ブランチ名 release/** で始まる Pull Request が開いた時
 on:
