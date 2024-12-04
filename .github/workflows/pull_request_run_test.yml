@@ -12,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    # ブランチ名を出す
-    - name: output branch name
-    - run: echo ${{ github.head_ref }}
-
     # チェックアウトする
     # Pull Request のブランチを指定
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
+
+    # ブランチ名を出す
+    - name: output branch name
+    - run: echo ${{ github.head_ref }}
     
     # JDK導入
     - name: set up JDK 21
