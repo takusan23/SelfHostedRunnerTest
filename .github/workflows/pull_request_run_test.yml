@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
 
     # チェックアウトする
@@ -16,16 +16,16 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
     
     # JDK導入
-    - name: set up JDK 17
+    - name: set up JDK 21
       uses: actions/setup-java@v3
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
         cache: gradle
 
     # Android SDK を入れる、self-hosted runner だと手動で入れないといけない
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+    # - name: Setup Android SDK
+    #   uses: android-actions/setup-android@v3
 
     # 権限を与える
     - name: Grant permission gradlew
