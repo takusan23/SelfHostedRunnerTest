@@ -14,7 +14,7 @@ jobs:
 
     # ブランチ名を出す
     - name: output branch name
-    - run: echo ${{ github.head_ref }} >> $GITHUB_STEP_SUMMARY
+    - run: echo ${{ github.head_ref }}
 
     # チェックアウトする
     # Pull Request のブランチを指定
