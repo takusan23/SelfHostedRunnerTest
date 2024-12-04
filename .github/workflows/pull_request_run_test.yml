@@ -1,13 +1,22 @@
 name: PR Run UnitTest
 
-# 起動条件。Pull Request が空いた時
+# 起動条件。Pull Request があいた時
 on:
   pull_request:
-
+    types:
+      - opened
+      - synchronize
+  workflow_dispatch:  
+  
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
+    # ブランチ名を出す
+    - name: output branch name
+    - run: |
+        echo ${{ github.head_ref }} >> $GITHUB_STEP_SUMMARY
 
     # チェックアウトする
     # Pull Request のブランチを指定
