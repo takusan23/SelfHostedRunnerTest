@@ -20,7 +20,7 @@ jobs:
 
     # ブランチ名を出す
     - name: output branch name
-    - run: echo ${{ github.head_ref }}
+      run: echo ${{ github.head_ref }}
     
     # JDK導入
     - name: set up JDK 21
